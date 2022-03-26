@@ -22,7 +22,7 @@ namespace TheLedgerCompany.Models
             this.interestRate = interestRate;
         }
 
-        private int Interest => this.principal * this.noOfYears * (this.interestRate / 100);
+        private int Interest => (this.principal * this.noOfYears * this.interestRate) / 100;
 
         private int Amount => this.principal + this.Interest;
 
