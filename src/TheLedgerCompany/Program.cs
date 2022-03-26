@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using TheLedgerCompany.Commands;
 using TheLedgerCompany.Queries;
 
@@ -9,6 +10,7 @@ namespace TheLedgerCompany
     {
         static void Main(string[] args)
         {
+            var serviceProvider = ConfigureServices();
             Console.WriteLine("Please provide the command");
             var response = new List<string>();
             string command;
@@ -20,15 +22,15 @@ namespace TheLedgerCompany
                 switch (command)
                 {
                     case "LOAN":
-                        new LoanCommand().Create(arguments[1], arguments[2], int.Parse(arguments[3]), int.Parse(arguments[4]), int.Parse(arguments[5]));
+                        serviceProvider.GetService<LoanCommand>().Create(arguments[1], arguments[2], int.Parse(arguments[3]), int.Parse(arguments[4]), int.Parse(arguments[5]));
                         break;
 
                     case "PAYMENT":
-                        new PaymentCommand().MakePayment(arguments[1], arguments[2], int.Parse(arguments[3]), int.Parse(arguments[4]));
+                        serviceProvider.GetService<PaymentCommand>().MakePayment(arguments[1], arguments[2], int.Parse(arguments[3]), int.Parse(arguments[4]));
                         break;
 
                     case "BALANCE":
-                        var balance = new BalanceQuery().GetBalance(arguments[1], arguments[2], int.Parse(arguments[3]));
+                        var balance = serviceProvider.GetService<BalanceQuery>().GetBalance(arguments[1], arguments[2], int.Parse(arguments[3]));
                         response.Add(balance.ToString());
                         break;
 
@@ -42,6 +44,18 @@ namespace TheLedgerCompany
                         break;
                 }
             }
+        }
+
+        private static ServiceProvider ConfigureServices()
+        {
+            //setup our DI
+            var serviceProvider = new ServiceCollection()
+                .AddTransient<LoanCommand>()
+                .AddTransient<PaymentCommand>()
+                .AddTransient<BalanceQuery>()
+                .BuildServiceProvider();
+
+            return serviceProvider;
         }
     }
 }
