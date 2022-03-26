@@ -1,17 +1,20 @@
-using TheLedgerCompany.Commands;
 using TheLedgerCompany.Models;
+using TheLedgerCompany.Services;
 
 namespace TheLedgerCompany.Queries
 {
     public class BalanceQuery
     {
-        public Balance GetBalance(string bankName, string borrowerName, int emi) {
-            var loan = Loan.GetByBankAndBorrowerName(bankName, borrowerName);
-            var extraPaymentDone = Payment.GetPaymentDoneBefore(bankName, borrowerName, emi);
-            var totalAmountPaid = loan.GetTotalAmountPaid(emi);
-            var emiLeft = loan.EmiPending(emi);
-            var balance = new Balance(bankName,  borrowerName,  totalAmountPaid + extraPaymentDone, emiLeft);
-            return balance;
+        private readonly BalanceService balanceService;
+
+        public BalanceQuery(BalanceService balanceService)
+        {
+            this.balanceService = balanceService;
+        }
+
+        public Balance GetBalance(string bankName, string borrowerName, int emi)
+        {
+            return balanceService.GetBalance(bankName, borrowerName, emi);
         }
     }
 }

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 using TheLedgerCompany.Commands;
+using TheLedgerCompany.Models;
 using TheLedgerCompany.Queries;
+using TheLedgerCompany.Services;
 
 namespace TheLedgerCompany
 {
@@ -48,11 +50,18 @@ namespace TheLedgerCompany
 
         private static ServiceProvider ConfigureServices()
         {
+            var loans = new List<Loan>();
+            var payments = new List<Payment>();
             //setup our DI
             var serviceProvider = new ServiceCollection()
                 .AddTransient<LoanCommand>()
                 .AddTransient<PaymentCommand>()
                 .AddTransient<BalanceQuery>()
+                .AddSingleton<PaymentService>()
+                .AddSingleton<LoanService>()
+                .AddSingleton<BalanceService>()
+                .AddSingleton((IServiceProvider arg) => loans)
+                .AddSingleton((IServiceProvider arg) => payments)
                 .BuildServiceProvider();
 
             return serviceProvider;

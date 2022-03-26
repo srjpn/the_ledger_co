@@ -2,22 +2,14 @@ namespace TheLedgerCompany.Models
 {
     public class Balance
     {
-        private string bankName;
-        private string borrowerName;
-        private int amountPaid;
-        private int emi;
+        public string BankName { get; set; }
+        public string BorrowerName { get; set; }
+        public int AmountPaid { get; set; }
+        public int PendingEmis { get; set; }
 
-        public Balance(string bankName, string borrowerName, int amountPaid, int emi)
+        public override string ToString()
         {
-            this.bankName = bankName;
-            this.borrowerName = borrowerName;
-            this.amountPaid = amountPaid;
-            this.emi = emi;
-        }
-
-        
-        public override string ToString() {
-            return $"{bankName} {borrowerName} {amountPaid} {emi}";
+            return $"{BankName} {BorrowerName} {AmountPaid} {PendingEmis}";
         }
     }
 }
