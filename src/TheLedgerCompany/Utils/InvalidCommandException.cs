@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TheLedgerCompany
 {
+    [ExcludeFromCodeCoverage]
     [Serializable]
     internal class InvalidCommandException : Exception
     {

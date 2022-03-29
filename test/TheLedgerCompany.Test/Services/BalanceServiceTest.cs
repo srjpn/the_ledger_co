@@ -36,7 +36,7 @@ namespace TheLedgerCompany.Test.Services
             Assert.Equal(55, balance.PendingEmis);
         }
 
-
+        [Fact]
         public void GetBalance_ShouldGiveTheTotalAmountPaidAndPendingEmisAtAGivenEmiNumberWithExtraPaymentsDone()
         {
             loanService.Add(new Loan
@@ -60,7 +60,7 @@ namespace TheLedgerCompany.Test.Services
 
             var balance = balanceService.GetBalance("IDIDI", "Dale", 6);
 
-            // Assert.Equal(3652, balance.AmountPaid);
+            Assert.Equal(3652, balance.AmountPaid);
             Assert.Equal(4, balance.PendingEmis);
         }
     }

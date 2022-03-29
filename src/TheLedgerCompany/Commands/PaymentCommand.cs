@@ -18,12 +18,6 @@ namespace TheLedgerCompany.Commands
             var borrowerName = args[1];
             var amount = int.Parse(args[2]);
             var emi = int.Parse(args[3]);
-            MakePayment(bankName, borrowerName, amount, emi);
-            return null;
-        }
-
-        private void MakePayment(string bankName, string borrowerName, int amount, int emi)
-        {
             var payment = new Payment
             {
                 BankName = bankName,
@@ -32,6 +26,7 @@ namespace TheLedgerCompany.Commands
                 Emi = emi
             };
             paymentService.Add(payment);
+            return null;
         }
     }
 }

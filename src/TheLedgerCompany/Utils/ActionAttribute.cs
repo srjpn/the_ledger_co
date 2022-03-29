@@ -1,22 +1,27 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-public class ActionAttribute : Attribute
+namespace TheLedgerCompany
 {
-    private string name;
-
-    public ActionAttribute(string name)
+    [ExcludeFromCodeCoverage]
+    public class ActionAttribute : Attribute
     {
-        this.name = name;
-    }
+        private string name;
 
-    public string Name => name;
+        public ActionAttribute(string name)
+        {
+            this.name = name;
+        }
 
-    public static string GetActionAttribute(object obj)
-    {
-        var attributesArray = new List<object>(obj.GetType().GetCustomAttributes(true));
+        public string Name => name;
 
-        return ((ActionAttribute) attributesArray.FirstOrDefault(x => x is ActionAttribute)).Name;
+        public static string GetActionAttribute(object obj)
+        {
+            var attributesArray = new List<object>(obj.GetType().GetCustomAttributes(true));
+
+            return ((ActionAttribute)attributesArray.FirstOrDefault(x => x is ActionAttribute)).Name;
+        }
     }
 }
