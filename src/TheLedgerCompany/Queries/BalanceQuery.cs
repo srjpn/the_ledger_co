@@ -3,7 +3,7 @@ using TheLedgerCompany.Services;
 
 namespace TheLedgerCompany.Queries
 {
-    public class BalanceQuery
+    public class BalanceQuery : IAction
     {
         private readonly BalanceService balanceService;
 
@@ -12,7 +12,15 @@ namespace TheLedgerCompany.Queries
             this.balanceService = balanceService;
         }
 
-        public Balance GetBalance(string bankName, string borrowerName, int emi)
+        public IResponse Execute(string[] args)
+        {
+            var bankName = args[0];
+            var borrowerName = args[1];
+            var emi = int.Parse(args[2]);
+            return GetBalance(bankName, borrowerName, emi);
+        }
+
+        private Balance GetBalance(string bankName, string borrowerName, int emi)
         {
             return balanceService.GetBalance(bankName, borrowerName, emi);
         }

@@ -3,7 +3,7 @@ using TheLedgerCompany.Services;
 
 namespace TheLedgerCompany.Commands
 {
-    public class PaymentCommand
+    public class PaymentCommand : IAction
     {
         private readonly PaymentService paymentService;
         public PaymentCommand(PaymentService paymentService)
@@ -11,7 +11,17 @@ namespace TheLedgerCompany.Commands
             this.paymentService = paymentService;
         }
 
-        public void MakePayment(string bankName, string borrowerName, int amount, int emi)
+        public IResponse Execute(string[] args)
+        {
+            var bankName = args[0];
+            var borrowerName = args[1];
+            var amount = int.Parse(args[2]);
+            var emi = int.Parse(args[3]);
+            MakePayment(bankName, borrowerName, amount, emi);
+            return null;
+        }
+
+        private void MakePayment(string bankName, string borrowerName, int amount, int emi)
         {
             var payment = new Payment
             {

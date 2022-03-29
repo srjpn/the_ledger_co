@@ -3,7 +3,7 @@ using TheLedgerCompany.Services;
 
 namespace TheLedgerCompany.Commands
 {
-    public class LoanCommand
+    public class LoanCommand : IAction
     {
         private readonly LoanService loanService;
         public LoanCommand(LoanService loanService)
@@ -11,7 +11,7 @@ namespace TheLedgerCompany.Commands
             this.loanService = loanService;
         }
 
-        public void Create(string bankName, string borrowerName, double principal, double noOfYears, double interestRate)
+        private void CreateLoan(string bankName, string borrowerName, double principal, double noOfYears, double interestRate)
         {
             var loan = new Loan()
             {
@@ -22,6 +22,18 @@ namespace TheLedgerCompany.Commands
                 InterestRate = interestRate
             };
             loanService.Add(loan);
+        }
+
+        public IResponse Execute(string[] args)
+        {
+            var bankName = args[0];
+            var borrowerName = args[1];
+            var principal = int.Parse(args[2]);
+            var noOfYears = int.Parse(args[3]);
+            var interestRate = int.Parse(args[4]);
+
+            CreateLoan(bankName, borrowerName, principal, noOfYears, interestRate);
+            return null;
         }
     }
 }

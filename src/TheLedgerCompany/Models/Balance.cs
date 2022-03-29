@@ -1,6 +1,6 @@
 namespace TheLedgerCompany.Models
 {
-    public class Balance
+    public class Balance : IResponse
     {
         public string BankName { get; set; }
         public string BorrowerName { get; set; }
