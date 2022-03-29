@@ -1,0 +1,1 @@
+zip -r the-ledger-co.zip ./src TheLedgerCompany.sln test Readme.md -x "*/bin/*" -x "*obj*" -x "test/TheLedgerCompany.Test/TestResults/*"
