@@ -13,40 +13,16 @@ namespace TheLedgerCompany
         static void Main(string[] args)
         {
             var serviceProvider = ConfigureServices();
-            Console.WriteLine("Please provide the command");
-            var response = new List<string>();
-            bool quitNow = false;
-            while (!quitNow)
+            Console.WriteLine("Welcome to The Ledger company");
+            while (true)
             {
                 var arguments = new List<string>(Console.ReadLine().Split(" "));
                 string command = arguments[0];
-                switch (command)
+                var action = serviceProvider.GetService<ActionSelector>().GetAction(command);
+                var result = action.Execute(arguments.Skip(1).ToArray());
+                if (action is IQuery)
                 {
-                    case "LOAN":
-                        arguments.Skip(1);
-                        serviceProvider.GetService<LoanCommand>().Execute(arguments.Skip(1).ToArray());
-                        // (arguments[1], arguments[2], int.Parse(arguments[3]), int.Parse(arguments[4]), int.Parse(arguments[5]));
-                        break;
-
-                    case "PAYMENT":
-                        serviceProvider.GetService<PaymentCommand>().Execute(arguments.Skip(1).ToArray());
-                        // serviceProvider.GetService<PaymentCommand>().MakePayment(arguments[1], arguments[2], int.Parse(arguments[3]), int.Parse(arguments[4]));
-                        break;
-
-                    case "BALANCE":
-                        var balance = serviceProvider.GetService<BalanceQuery>().Execute(arguments.Skip(1).ToArray());
-                        // serviceProvider.GetService<BalanceQuery>().GetBalance(arguments[1], arguments[2], int.Parse(arguments[3]));
-                        response.Add(balance.ToString());
-                        break;
-
-                    case "":
-                        quitNow = true;
-                        response.ForEach(x => Console.WriteLine(x));
-                        break;
-
-                    default:
-                        Console.WriteLine("Unknown Command " + command);
-                        break;
+                    Console.WriteLine(result.ToString());
                 }
             }
         }
@@ -55,9 +31,11 @@ namespace TheLedgerCompany
         {
             //setup our DI
             var serviceProvider = new ServiceCollection()
-                .AddTransient<LoanCommand>()
-                .AddTransient<PaymentCommand>()
-                .AddTransient<BalanceQuery>()
+                .AddTransient<IAction, LoanCommand>()
+                .AddTransient<IAction, PaymentCommand>()
+                .AddTransient<IAction, BalanceQuery>()
+                .AddTransient<IAction, QuitCommand>()
+                .AddSingleton<ActionSelector>()
                 .AddSingleton<PaymentService>()
                 .AddSingleton<LoanService>()
                 .AddSingleton<BalanceService>()

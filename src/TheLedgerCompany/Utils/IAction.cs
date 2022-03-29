@@ -4,8 +4,4 @@ namespace TheLedgerCompany
     {
         IResponse Execute(string[] args);
     }
-
-    public interface IResponse
-    {
-    }
 }

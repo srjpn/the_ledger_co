@@ -3,6 +3,7 @@ using TheLedgerCompany.Services;
 
 namespace TheLedgerCompany.Commands
 {
+    [Action("LOAN")]
     public class LoanCommand : IAction
     {
         private readonly LoanService loanService;

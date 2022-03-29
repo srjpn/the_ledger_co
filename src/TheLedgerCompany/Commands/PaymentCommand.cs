@@ -3,6 +3,7 @@ using TheLedgerCompany.Services;
 
 namespace TheLedgerCompany.Commands
 {
+    [Action("PAYMENT")]
     public class PaymentCommand : IAction
     {
         private readonly PaymentService paymentService;

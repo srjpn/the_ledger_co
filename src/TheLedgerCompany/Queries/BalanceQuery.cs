@@ -3,7 +3,8 @@ using TheLedgerCompany.Services;
 
 namespace TheLedgerCompany.Queries
 {
-    public class BalanceQuery : IAction
+    [Action("BALANCE")]
+    public class BalanceQuery : IAction, IQuery
     {
         private readonly BalanceService balanceService;
 
