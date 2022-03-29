@@ -13,18 +13,21 @@ namespace TheLedgerCompany
         static void Main(string[] args)
         {
             var serviceProvider = ConfigureServices();
-            Console.WriteLine("Welcome to The Ledger company");
-            while (true)
+            var filePath = args[0];
+            var response = new List<string>();
+            foreach (string line in System.IO.File.ReadLines(filePath))
             {
-                var arguments = new List<string>(Console.ReadLine().Split(" "));
+                var arguments = new List<string>(line.Split(" "));
                 string command = arguments[0];
                 var action = serviceProvider.GetService<ActionSelector>().GetAction(command);
                 var result = action.Execute(arguments.Skip(1).ToArray());
                 if (result != null)
                 {
-                    Console.WriteLine(result.ToString());
+                    response.Add(result.ToString());
                 }
             }
+
+            response.ForEach(x => Console.WriteLine(x));
         }
 
         private static ServiceProvider ConfigureServices()
