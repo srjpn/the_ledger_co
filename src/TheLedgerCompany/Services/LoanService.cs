@@ -4,7 +4,13 @@ using TheLedgerCompany.Models;
 
 namespace TheLedgerCompany.Services
 {
-    public class LoanService
+    public interface ILoanService
+    {
+        void Add(Loan loan);
+        Loan GetByBankAndBorrowerName(string bankName, string borrowerName);
+    }
+
+    public class LoanService : ILoanService
     {
         private readonly List<Loan> loans = new List<Loan>();
 

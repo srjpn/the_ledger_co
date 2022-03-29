@@ -6,8 +6,8 @@ namespace TheLedgerCompany.Commands
     [Action("LOAN")]
     public class LoanCommand : IAction
     {
-        private readonly LoanService loanService;
-        public LoanCommand(LoanService loanService)
+        private readonly ILoanService loanService;
+        public LoanCommand(ILoanService loanService)
         {
             this.loanService = loanService;
         }

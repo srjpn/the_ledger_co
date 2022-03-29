@@ -4,7 +4,13 @@ using TheLedgerCompany.Models;
 
 namespace TheLedgerCompany.Services
 {
-    public class PaymentService
+    public interface IPaymentService
+    {
+        void Add(Payment payment);
+        int GetPaymentDoneBefore(string bankName, string borrowerName, int emi);
+    }
+
+    public class PaymentService : IPaymentService
     {
         private readonly List<Payment> payments = new List<Payment>();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using TheLedgerCompany.Commands;
@@ -8,6 +9,7 @@ using TheLedgerCompany.Services;
 
 namespace TheLedgerCompany
 {
+    [ExcludeFromCodeCoverage]
     class Program
     {
         static void Main(string[] args)
@@ -39,9 +41,9 @@ namespace TheLedgerCompany
                 .AddTransient<IAction, BalanceQuery>()
                 .AddTransient<IAction, QuitCommand>()
                 .AddSingleton<ActionSelector>()
-                .AddSingleton<PaymentService>()
-                .AddSingleton<LoanService>()
-                .AddSingleton<BalanceService>()
+                .AddSingleton<IPaymentService, PaymentService>()
+                .AddSingleton<ILoanService, LoanService>()
+                .AddSingleton<IBalanceService, BalanceService>()
                 .BuildServiceProvider();
 
             return serviceProvider;

@@ -2,11 +2,16 @@ using TheLedgerCompany.Models;
 
 namespace TheLedgerCompany.Services
 {
-    public class BalanceService
+    public interface IBalanceService
     {
-        private readonly LoanService loanService;
-        private readonly PaymentService paymentService;
-        public BalanceService(LoanService loanService, PaymentService paymentService)
+        Balance GetBalance(string bankName, string borrowerName, int emi);
+    }
+
+    public class BalanceService : IBalanceService
+    {
+        private readonly ILoanService loanService;
+        private readonly IPaymentService paymentService;
+        public BalanceService(ILoanService loanService, IPaymentService paymentService)
         {
             this.paymentService = paymentService;
             this.loanService = loanService;

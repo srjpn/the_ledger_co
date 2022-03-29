@@ -5,9 +5,9 @@ namespace TheLedgerCompany.Queries
     [Action("BALANCE")]
     public class BalanceQuery : IAction, IQuery
     {
-        private readonly BalanceService balanceService;
+        private readonly IBalanceService balanceService;
 
-        public BalanceQuery(BalanceService balanceService)
+        public BalanceQuery(IBalanceService balanceService)
         {
             this.balanceService = balanceService;
         }

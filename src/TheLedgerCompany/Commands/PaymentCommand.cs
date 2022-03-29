@@ -6,8 +6,8 @@ namespace TheLedgerCompany.Commands
     [Action("PAYMENT")]
     public class PaymentCommand : IAction
     {
-        private readonly PaymentService paymentService;
-        public PaymentCommand(PaymentService paymentService)
+        private readonly IPaymentService paymentService;
+        public PaymentCommand(IPaymentService paymentService)
         {
             this.paymentService = paymentService;
         }
