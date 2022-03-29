@@ -11,7 +11,7 @@ namespace TheLedgerCompany.Commands
             this.loanService = loanService;
         }
 
-        public void Create(string bankName, string borrowerName, int principal, int noOfYears, int interestRate)
+        public void Create(string bankName, string borrowerName, double principal, double noOfYears, double interestRate)
         {
             var loan = new Loan()
             {

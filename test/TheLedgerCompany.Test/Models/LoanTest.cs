@@ -30,7 +30,21 @@ namespace TheLedgerCompany.Test.Models
                 NoOfYears = 5,
                 InterestRate = 4
             };
-            Assert.Equal(55, loan.EmiPending(5));
+            Assert.Equal(55, loan.EmiPending(5, 0));
+        }
+
+        [Fact]
+        public void EmiPending_ShouldGivePendingEmiAfterGivenEmi_WithExtraPaymentsDone()
+        {
+            var loan = new Loan
+            {
+                BankName = "IDIDI",
+                BorrowerName = "Dale",
+                Principal = 5000,
+                NoOfYears = 1,
+                InterestRate = 6
+            };
+            Assert.Equal(4, loan.EmiPending(6, 1000));
         }
     }
 }

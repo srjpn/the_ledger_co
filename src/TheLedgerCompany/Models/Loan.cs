@@ -1,21 +1,25 @@
+using System;
+
 namespace TheLedgerCompany.Models
 {
     public class Loan
     {
         public string BankName { get; set; }
         public string BorrowerName { get; set; }
-        public int Principal { get; set; }
-        public int NoOfYears { get; set; }
-        public int InterestRate { get; set; }
+        public double Principal { get; set; }
+        public double NoOfYears { get; set; }
+        public double InterestRate { get; set; }
 
-        private int Interest => (this.Principal * this.NoOfYears * this.InterestRate) / 100;
+        private double Interest => (this.Principal * this.NoOfYears * this.InterestRate) / 100;
 
-        private int Amount => this.Principal + this.Interest;
+        private double Amount => this.Principal + this.Interest;
 
-        private int Emi => Amount / (this.NoOfYears * 12);
+        private double Emi => Math.Ceiling(Amount / (this.NoOfYears * 12));
 
-        public int GetTotalAmountPaid(int emi) => this.Emi * emi;
+        public double GetTotalAmountPaid(int emi) => this.Emi * emi;
 
-        public int EmiPending(int emi) => (Amount / Emi) - emi;
+        private double GetBalanceAmount(int emi, double extraPaymentsDone) => GetTotalAmountPaid(emi) + extraPaymentsDone;
+
+        public double EmiPending(int emi, double extraPaymentsDone) => Math.Ceiling((Amount - GetBalanceAmount(emi, extraPaymentsDone))/Emi);
     }
 }
