@@ -16,7 +16,21 @@ namespace TheLedgerCompany.Test.Models
                 NoOfYears = 5,
                 InterestRate = 4
             };
-            Assert.Equal(1000, loan.GetTotalAmountPaid(5));
+            Assert.Equal(1000, loan.GetTotalAmountPaid(5, 0));
+        }
+
+        [Fact]
+        public void GetTotalAmountPaid_ShouldCalculateTotalPaidAmountAlongWithExtraPaymentsDone()
+        {
+            var loan = new Loan
+            {
+                BankName = "IDIDI",
+                BorrowerName = "Dale",
+                Principal = 10000,
+                NoOfYears = 3,
+                InterestRate = 7
+            };
+            Assert.Equal(12100, loan.GetTotalAmountPaid(30, 2000));
         }
 
         [Fact]

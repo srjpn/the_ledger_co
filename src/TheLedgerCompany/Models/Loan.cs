@@ -16,10 +16,20 @@ namespace TheLedgerCompany.Models
 
         private double Emi => Math.Ceiling(Amount / (this.NoOfYears * 12));
 
-        public double GetTotalAmountPaid(int emi) => this.Emi * emi;
+        public double GetTotalAmountPaid(int emi, double extraPaymentsDone)
+        {
+            var totalAmount = Amount - extraPaymentsDone;
+            double amountPaid = 0;
+            for (var i = 0; i < emi; i++)
+            {
+                var currentEmi = totalAmount > Emi ? Emi : totalAmount;
+                amountPaid = amountPaid + currentEmi;
+                totalAmount = totalAmount - currentEmi;
 
-        private double GetBalanceAmount(int emi, double extraPaymentsDone) => GetTotalAmountPaid(emi) + extraPaymentsDone;
+            }
+            return extraPaymentsDone + amountPaid;
+        }
 
-        public int EmiPending(int emi, double extraPaymentsDone) =>  Convert.ToInt32(Math.Ceiling((Amount - GetBalanceAmount(emi, extraPaymentsDone))/Emi));
+        public int EmiPending(int emi, double extraPaymentsDone) => Convert.ToInt32(Math.Ceiling((Amount - GetTotalAmountPaid(emi, extraPaymentsDone)) / Emi));
     }
 }

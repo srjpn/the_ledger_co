@@ -20,13 +20,13 @@ namespace TheLedgerCompany.Services
         {
             var loan = loanService.GetByBankAndBorrowerName(bankName, borrowerName);
             var extraPaymentDone = paymentService.GetPaymentDoneBefore(bankName, borrowerName, emi);
-            var totalAmountPaid = loan.GetTotalAmountPaid(emi);
+            var totalAmountPaid = loan.GetTotalAmountPaid(emi, extraPaymentDone);
             var emiLeft = loan.EmiPending(emi, extraPaymentDone);
             var balance = new Balance
             {
                 BankName = bankName,
                 BorrowerName = borrowerName,
-                AmountPaid = totalAmountPaid + extraPaymentDone,
+                AmountPaid = totalAmountPaid,
                 PendingEmis = emiLeft
             };
             return balance;
