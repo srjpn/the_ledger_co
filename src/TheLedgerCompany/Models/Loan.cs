@@ -20,6 +20,6 @@ namespace TheLedgerCompany.Models
 
         private double GetBalanceAmount(int emi, double extraPaymentsDone) => GetTotalAmountPaid(emi) + extraPaymentsDone;
 
-        public double EmiPending(int emi, double extraPaymentsDone) => Math.Ceiling((Amount - GetBalanceAmount(emi, extraPaymentsDone))/Emi);
+        public int EmiPending(int emi, double extraPaymentsDone) =>  Convert.ToInt32(Math.Ceiling((Amount - GetBalanceAmount(emi, extraPaymentsDone))/Emi));
     }
 }
