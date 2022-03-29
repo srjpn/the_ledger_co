@@ -39,7 +39,6 @@ namespace TheLedgerCompany
                 .AddTransient<IAction, LoanCommand>()
                 .AddTransient<IAction, PaymentCommand>()
                 .AddTransient<IAction, BalanceQuery>()
-                .AddTransient<IAction, QuitCommand>()
                 .AddSingleton<ActionSelector>()
                 .AddSingleton<IPaymentService, PaymentService>()
                 .AddSingleton<ILoanService, LoanService>()
