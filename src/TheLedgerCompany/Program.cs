@@ -20,7 +20,7 @@ namespace TheLedgerCompany
                 string command = arguments[0];
                 var action = serviceProvider.GetService<ActionSelector>().GetAction(command);
                 var result = action.Execute(arguments.Skip(1).ToArray());
-                if (action is IQuery)
+                if (result != null)
                 {
                     Console.WriteLine(result.ToString());
                 }

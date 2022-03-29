@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TheLedgerCompany.Queries;
 
 namespace TheLedgerCompany
 {
@@ -17,7 +18,7 @@ namespace TheLedgerCompany
             IAction action = actions.ToList().FirstOrDefault(x => ActionAttribute.GetActionAttribute(x) == command.ToUpper());
             if (action == null)
             {
-                throw new InvalidCommandException();
+                return new HelpQuery();
             }
             return action;
         }
