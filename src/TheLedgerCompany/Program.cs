@@ -43,6 +43,7 @@ namespace TheLedgerCompany
                 .AddSingleton<IPaymentService, PaymentService>()
                 .AddSingleton<ILoanService, LoanService>()
                 .AddSingleton<IBalanceService, BalanceService>()
+                .AddSingleton<IInterestChangeService, InterestChangeService>()
                 .BuildServiceProvider();
 
             return serviceProvider;
