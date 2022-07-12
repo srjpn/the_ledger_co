@@ -25,7 +25,7 @@ namespace TheLedgerCompany.Test.Services
                 BorrowerName = "Dale",
                 Principal = 5000,
                 NoOfYears = 1,
-                InterestRate = 6
+                // InterestRate = 6
             };
             loanServiceMock.Setup(x => x.GetByBankAndBorrowerName(It.IsAny<string>(), It.IsAny<string>())).Returns(loan);
             paymentServiceMock.Setup(x => x.GetPaymentDoneBefore(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(0);
@@ -47,7 +47,7 @@ namespace TheLedgerCompany.Test.Services
                 BorrowerName = "Dale",
                 Principal = 5000,
                 NoOfYears = 1,
-                InterestRate = 6
+                // InterestRate = 6
             };
             loanServiceMock.Setup(x => x.GetByBankAndBorrowerName(It.IsAny<string>(), It.IsAny<string>())).Returns(loan);
             paymentServiceMock.Setup(x => x.GetPaymentDoneBefore(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>())).Returns(1000);

@@ -26,7 +26,7 @@ namespace TheLedgerCompany.Commands
                 BorrowerName = borrowerName,
                 Principal = principal,
                 NoOfYears = noOfYears,
-                InterestRate = interestRate
+                // InterestRates = interestRate
             };
             loanService.Add(loan);
             return null;

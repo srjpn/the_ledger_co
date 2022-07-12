@@ -35,5 +35,6 @@ namespace TheLedgerCompany.Services
     public interface IInterestChangeService
     {
         void AddInterestChange(string bankName, string borrowerName, int interestRate);
+        IEnumerable<InterestChange> GetByBankAndBorrowerName(string bankName, string borrowerName);
     }
 }

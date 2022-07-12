@@ -11,6 +11,7 @@ namespace TheLedgerCompany.Services
     {
         private readonly ILoanService loanService;
         private readonly IPaymentService paymentService;
+        private readonly IInterestChangeService interestChangeService;
         public BalanceService(ILoanService loanService, IPaymentService paymentService)
         {
             this.paymentService = paymentService;
@@ -20,16 +21,18 @@ namespace TheLedgerCompany.Services
         {
             var loan = loanService.GetByBankAndBorrowerName(bankName, borrowerName);
             var extraPaymentDone = paymentService.GetPaymentDoneBefore(bankName, borrowerName, emi);
-            var totalAmountPaid = loan.GetTotalAmountPaid(emi, extraPaymentDone);
-            var emiLeft = loan.EmiPending(emi, extraPaymentDone);
-            var balance = new Balance
-            {
-                BankName = bankName,
-                BorrowerName = borrowerName,
-                AmountPaid = totalAmountPaid,
-                PendingEmis = emiLeft
-            };
-            return balance;
+            var interestChanges = interestChangeService.GetByBankAndBorrowerName(bankName, borrowerName);
+            // var totalAmountPaid = loan.GetTotalAmountPaid(emi, extraPaymentDone, interestChanges);
+            // var emiLeft = loan.EmiPending(emi, extraPaymentDone, interestChanges);
+            // var balance = new Balance
+            // {
+            //     BankName = bankName,
+            //     BorrowerName = borrowerName,
+            //     AmountPaid = totalAmountPaid,
+            //     PendingEmis = emiLeft
+            // };
+            // return balance;
+            return null;
         }
     }
 }
